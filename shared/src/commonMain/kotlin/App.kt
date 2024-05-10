@@ -12,6 +12,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
+import io.kamel.core.Resource
+import io.kamel.image.KamelImage
+import io.kamel.image.asyncPainterResource
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.serialization.kotlinx.json.*
+import model.BirdImage
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
@@ -29,10 +39,26 @@ fun App() {
                 Text(greetingText)
             }
             AnimatedVisibility(showImage) {
-                KamelImage()
+
+                KamelImage(
+                    asyncPainterResource("https://sebi.io/demo-image-api/pigeon/arun-waghela-OLNQk7SsEIY-unsplash.jpg",),
+                    contentDescription = "Nopo"
+                )
             }
         }
     }
+}
+
+val httpClient = HttpClient{
+    install(ContentNegotiation){
+        json()
+    }
+}
+
+suspend fun getImage(): List<BirdImage>{
+    val images = httpClient.get("https://sebi.io/demo-image-api/pictures.json")
+        .body<List<BirdImage>>()
+    return  images
 }
 
 expect fun getPlatformName(): String

@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("org.jetbrains.compose")
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 kotlin {
@@ -29,6 +30,11 @@ kotlin {
                 implementation("media.kamel:kamel-image:0.9.4")
                 implementation("io.ktor:ktor-client-core:2.3.11")
                 implementation("io.ktor:ktor-client-darwin:2.3.11")
+
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+                implementation("io.ktor:ktor-client-content-negotiation:2.3.11")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.11")
+
 
             }
         }
