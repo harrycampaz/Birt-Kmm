@@ -29,10 +29,7 @@ fun App() {
                 Text(greetingText)
             }
             AnimatedVisibility(showImage) {
-                Image(
-                    painterResource("compose-multiplatform.xml"),
-                    null
-                )
+                KamelImage()
             }
         }
     }
