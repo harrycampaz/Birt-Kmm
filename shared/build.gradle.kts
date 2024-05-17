@@ -35,6 +35,8 @@ kotlin {
                 implementation("io.ktor:ktor-client-content-negotiation:2.3.11")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.11")
 
+                api("dev.icerock.moko:mvvm-core:0.16.1") // only ViewModel, EventsDispatcher, Dispatchers.UI
+                api("dev.icerock.moko:mvvm-compose:0.16.1")
 
             }
         }
