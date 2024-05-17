@@ -12,8 +12,17 @@ import model.BirdImage
 
 
 data class BirdUIState(
-    val images: List<BirdImage> = emptyList()
-)
+    val images: List<BirdImage> = emptyList(),
+    val selectedCategory: String? = null
+){
+    val categories = images.map {
+        it.category
+        }.toSet()
+
+    val selectedImages = images.filter {
+        it.category == selectedCategory
+    }
+}
 
 class BirdViewModel: ViewModel(){
     private val _uiState = MutableStateFlow<BirdUIState>(BirdUIState())
@@ -35,6 +44,12 @@ class BirdViewModel: ViewModel(){
         httpClient.close()
     }
     
+    fun select(catte: String){
+        _uiState.update {
+                            it.copy(selectedCategory = catte)
+                    }
+    }
+
     private fun updateImage(){
         viewModelScope.launch {
             val images = getImage()
